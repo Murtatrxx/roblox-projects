@@ -1,6 +1,5 @@
 game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
  
- --< variables >--
 local uis = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 local char = workspace:WaitForChild(player.Name) -- added WaitForChild
@@ -30,7 +29,6 @@ local inputOrder = { -- array for storing the order of the keys
 	inputKeys["Five"]
 }
 	
---< functions >--
 function handleEquip(tool)
 	if tool then
 		if tool.Parent ~= char then
@@ -164,7 +162,6 @@ function handleRemoval(removing)
 	end
 end
 
---< events >--
 uis.InputBegan:Connect(onKeyPress)
 
 char.ChildAdded:Connect(handleAddition)
@@ -173,5 +170,4 @@ char.ChildRemoved:Connect(handleRemoval)
 bp.ChildAdded:Connect(handleAddition)
 bp.ChildRemoved:Connect(handleRemoval)
 
---< start >--
 setup()
