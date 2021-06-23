@@ -23,7 +23,7 @@ function restrictAngle(angle)
 	if angle < -math.pi then
 		return angle + math.pi * 2
 	elseif angle > math.pi then
-		return angle - math.pi  *2
+		return angle - math.pi * 2
 	else
 		return angle
 	end
@@ -37,7 +37,7 @@ while true do
 	local lookY = math.atan2(look.z, look.x)
 
 	local difY = restrictAngle(lookY - lastY)
-	lookY = restrictAngle(lastY + difY*delta*smoothness)
+	lookY = restrictAngle(lastY + difY * delta * smoothness)
 	lastY = lookY
 
 	for unit, rot in pairs(units) do
@@ -47,7 +47,7 @@ while true do
 			local cosRot2 = cosRot*cosRot
 
 			unit.Visible = true
-			unit:TweenPosition(UDim2.new(0.5 + cosRot*0.6, unit.Position.X.Offset, 0, 3), "Out" , "Quart" , 0.2 , true)
+			unit:TweenPosition(UDim2.new(0.5 + cosRot * 0.6, unit.Position.X.Offset, 0, 3), "Out" , "Quart" , 0.2 , true)
 		else
 			unit.Visible = false
 		end
