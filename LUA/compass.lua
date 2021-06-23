@@ -44,7 +44,7 @@ while true do
 		rot = restrictAngle(lookY - rot)
 		if math.sin(rot) > 0 then
 			local cosRot = math.cos(rot)
-			local cosRot2 = cosRot*cosRot
+			local cosRot2 = cosRot * cosRot
 
 			unit.Visible = true
 			unit:TweenPosition(UDim2.new(0.5 + cosRot * 0.6, unit.Position.X.Offset, 0, 3), "Out" , "Quart" , 0.2 , true)
