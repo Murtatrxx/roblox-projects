@@ -7,4 +7,4 @@ You can find my past LUA works on this repository.
 * <strong><del>Game</del></strong> - <strong><a href="https://discord.gg/g425E3G3Z3">Studio</a></strong>
 | <strong>Result:</strong> 🔧 Process
 
-(you will only see my LUA projects here, if you want more look at <a href="https://github.com/heynaberuy/visualbot">here</a> or <a href="https://github.com/heynaberuy/djs-bot"></a>.)
+(you will only see my LUA projects here, if you want more look at <a href="https://github.com/heynaberuy/visualbot">here</a> or <a href="https://github.com/heynaberuy/djs-bot">here</a>.)
