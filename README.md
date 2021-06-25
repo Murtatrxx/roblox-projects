@@ -1,5 +1,5 @@
 <strong><h1>Roblox LUA</h1></strong>
-You can find my past LUA works on this repository.You can contact me from Discord (ImRopoxPro#7099). My roblox is <a href="https://web.roblox.com/users/1369550999/profile">here</a>.
+You can find my past LUA works on this repository. You can contact me from Discord (ImRopoxPro#7099). My roblox is <a href="https://web.roblox.com/users/1369550999/profile">here</a>.
 
 * <strong><a href="https://web.roblox.com/games/5825834765/Beta-Stelar-Piece?">Game</a></strong> - <strong><a href="https://discord.gg/cgZCCEQXcz">Studio</a></strong>
 | <strong>Result:</strong> 💸 Scam
