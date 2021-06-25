@@ -3,7 +3,7 @@ You can find my past LUA works & portfolio on this repository.
 
 <h2><strong>🙍‍♂️ About Me</strong></h2>
 
-👋 Hello, I'm Murtatrxx, you can call me by ImRopoxPro. I'm experienced Roblox LUA scripter about 2 years. I'm trying to be as active as I can be (3-4 hours/day), I can work up to 😯 <strong>37</strong> hours per week (this is my record - <a href="https://calendar.google.com/calendar/u/0/r/week/2021/5/6?pli=1">05.09.2021</a>). I am accepting short-term or medium-term jobs because I am already in a long-term project. Do you need a scripter why are you waiting, <strong>hire me!</strong>
+👋 Hello, I'm Murtatrxx, you can call me by ImRopoxPro. I'm experienced Roblox LUA scripter about 2 years. I'm trying to be as active as I can be (3-4 hours/day), I can work up to 😯 <strong>37</strong> hours per week (this is my record - <a href="https://calendar.google.com/calendar/u/0/r/week/2021/5/6?pli=1">05.06.2021</a>). I am accepting short-term or medium-term jobs because I am already in a long-term project. Do you need a scripter why are you waiting, <strong>hire me!</strong>
 
 <h2><strong>📞 Contact</strong></h2>
 
