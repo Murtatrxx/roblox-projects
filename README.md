@@ -29,7 +29,7 @@ I can only accept robux others not accepted. Price is starting at 1.000 robux (1
 
 - <strong><h4>✅ Acceptable</h4></strong>
 
-Currently working on 2 projects (1 long-term 1 short-term). You are lucky, If you have a short / medium term job,I can accept you.
+Currently working on 2 projects (1 long-term 1 short-term). You are lucky, If you have a short / medium term job, I can accept you.
 
 <h2><strong>📝 Note</strong></h2>
 
