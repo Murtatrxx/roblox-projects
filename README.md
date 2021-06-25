@@ -1,10 +1,11 @@
 <strong><h1>Roblox LUA</h1></strong>
-You can find my past LUA works on this repository. You can contact me from Discord (ImRopoxPro#7099).
+You can find my past LUA works on this repository. 
 
 <h2><strong>📞 Contact</strong></h2>
 
-* My roblox is <a href="https://web.roblox.com/users/1369550999/profile">here</a>.
+* My Roblox profile is <a href="https://web.roblox.com/users/1369550999/profile">here</a>.
 * My Github profile is <a href="https://github.com/heynaberuy">here</a>.
+* You can contact me from Discord (ImRopoxPro#7099).
 
 <h2><strong>🕐 Past Games</strong></h2>
 
