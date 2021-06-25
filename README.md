@@ -9,7 +9,7 @@ You can find my past LUA works on this repository.
 
 <h2><strong>🕐 Past Games</strong></h2>
 
-(this is games look at <a href="https://github.com/heynaberuy/roblox-projects/tree/main/LUA">here</a> for the code)
+(these are only games, look at <a href="https://github.com/heynaberuy/roblox-projects/tree/main/LUA">here</a> for the code)
 
 * <strong><a href="https://web.roblox.com/games/5825834765/Beta-Stelar-Piece?">Game</a></strong> - <strong><a href="https://discord.gg/cgZCCEQXcz">Studio</a></strong>
 | <strong>Result:</strong> 💸 Scam
