@@ -23,11 +23,11 @@ You can find my past LUA works & portfolio on this repository.
 
 <h2><strong>💸・Payment</strong></h2>
 
-I can only accept robux others not accepted. Price is starting at 1.000 robux (12.5$). Price may vary depending on the difficulty of the job. Please pay me by Group Funds other ways, I don't want to lose 30% of my robux : c 
+I can only accept robux, others not accepted. Price is starting at 1,000 robux (12.5$). Price may vary depending on the difficulty of the job. Please pay me by Group Funds other ways, I don't want to lose 30% of my robux, means for me is losing 30% of my work.
 
 <h2><strong>🥽・Density</strong></h2>
 
-- <strong><h4>✅ Acceptable</h4></strong>
+> <strong><h4>✅ Acceptable</h4></strong>
 
 Currently working on 2 projects (1 long-term 1 short-term). You are lucky, If you have a short / medium term job, I can accept you.
 
