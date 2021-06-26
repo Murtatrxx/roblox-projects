@@ -27,7 +27,7 @@ I can only accept robux, others not accepted. Price is starting at 1,000 robux (
 
 <h2><strong>🥽・Density</strong></h2>
 
-> <strong><h4>✅ Acceptable</h4></strong>
+> <strong><h4>⛔️ Very Busy</h4></strong>
 
 Currently working on 4 projects (2 long-term 2 short-term). Sorry but I can't accept anthing for now. Come back another time.
 
