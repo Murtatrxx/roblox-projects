@@ -9,7 +9,7 @@ You can find my past LUA works & portfolio on this repository.
 
 * My Roblox profile is <a href="https://web.roblox.com/users/1369550999/profile">here</a>.
 * My Github profile is <a href="https://github.com/heynaberuy">here</a>.
-* You can contact me from <a href="discord.com/app" text-decoration=none >Discord</a> (ImRopoxPro#7099).
+* You can contact me from <a href="https://discord.com/app">Discord</a> (ImRopoxPro#7099).
 
 <h2><strong>🕐・Past Games</strong></h2>
 
