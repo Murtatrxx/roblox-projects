@@ -29,6 +29,6 @@ I can only accept robux, others not accepted. Price is starting at 1,000 robux (
 
 > <strong><h4>✅ Acceptable</h4></strong>
 
-Currently working on 2 projects (1 long-term 1 short-term). You are lucky, If you have a short / medium term job, I can accept you.
+Currently working on 4 projects (2 long-term 2 short-term). Sorry but I can't accept anthing for now. Come back another time.
 
 <strong>✏ NOTE:</strong> You will only see my LUA projects here, if you want more look at <a href="https://github.com/heynaberuy/visualbot">here</a> or <a href="https://github.com/heynaberuy/djs-bot">here</a>.
