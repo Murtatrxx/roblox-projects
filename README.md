@@ -22,13 +22,12 @@ You can find my past LUA works & portfolio on this repository.
 | <strong>Result:</strong> 🔧 Progress
 
 <h2><strong>💸・Payment</strong></h2>
-
-I can only accept robux, others not accepted. Price is starting at 1,000 robux (12.5$). Price may vary depending on the difficulty of the job. Please pay me by Group Funds other ways, I don't want to lose 30% of my robux, means for me is losing 30% of my work.
+pt robux, others not accepted. Price is starting at 1,000 robux (12.5$). Price may vary depending on the difficulty of the job. Please pay me by Group Funds other ways, I don't want to lose 30% of my robux, means for me is losing 30% of my work.
 
 <h2><strong>🥽・Density</strong></h2>
 
-> <strong><h4>⛔️ Very Busy</h4></strong>
+> <strong><h4>😐 Busy</h4></strong>
 
-Currently working on 4 projects (2 long-term 2 short-term). Sorry but I can't accept anthing for now. Come back another time.
+Currently working on 3 projects (1 long-term 1 short-term). Sorry but I can't accept anthing for now. Come back another time.
 
 <strong>✏ NOTE:</strong> You will only see my LUA projects here, if you want more look at <a href="https://github.com/heynaberuy/visualbot">here</a> or <a href="https://github.com/heynaberuy/djs-bot">here</a>.
