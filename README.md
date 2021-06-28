@@ -26,7 +26,7 @@ pt robux, others not accepted. Price is starting at 1,000 robux (12.5$). Price m
 
 <h2><strong>🥽・Density</strong></h2>
 
-> <strong><h4>😐 Busy</h4></strong>
+> <strong><h4></h4></strong>
 
 Currently working on 3 projects (1 long-term 1 short-term). Sorry but I can't accept anthing for now. Come back another time.
 
