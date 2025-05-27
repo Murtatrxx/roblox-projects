@@ -1,7 +1,6 @@
 local StarterGui = game:GetService('StarterGui')
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
-local SoundService = game:GetService("SoundService")
 
 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
 
@@ -24,16 +23,6 @@ local CONFIG = {
     defaultCooldown = 1, -- seconds
 }
 
--- Sound effects
-local selectSound = Instance.new("Sound")
-selectSound.SoundId = "rbxasset://sounds/uuhhh.wav"
-selectSound.Parent = SoundService
-
-local equipSound = Instance.new("Sound")
-equipSound.SoundId = "rbxasset://sounds/click.wav"
-equipSound.Parent = SoundService
-
--- Data storage
 local inputKeys = {
     ["One"]   = { txt = "1", slot = 1 },
     ["Two"]   = { txt = "2", slot = 2 },
@@ -50,11 +39,10 @@ local inputOrder = {
     inputKeys["Five"]
 }
 
-local cooldowns = {} -- Track tool cooldowns
-local dragging = nil -- Track drag-and-drop
-local hotbarConfig = {} -- Store hotbar configuration
+local cooldowns = {}
+local dragging = nil
+local hotbarConfig = {}
 
--- Create tooltip frame
 local tooltip = Instance.new("Frame")
 tooltip.Size = UDim2.new(0, 200, 0, 50)
 tooltip.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -71,7 +59,6 @@ tooltipLabel.TextScaled = true
 tooltipLabel.Parent = tooltip
 
 local function saveHotbarConfig()
-    -- In a real implementation, this would save to a DataStore
     hotbarConfig = {}
     for i, value in ipairs(inputOrder) do
         if value.tool then
@@ -81,7 +68,6 @@ local function saveHotbarConfig()
 end
 
 local function loadHotbarConfig()
-    -- In a real implementation, this would load from a DataStore
     for key, toolName in pairs(hotbarConfig) do
         local tool = bp:FindFirstChild(toolName) or char:FindFirstChild(toolName)
         if tool then
@@ -93,10 +79,6 @@ local function loadHotbarConfig()
             end
         end
     end
-end
-
-local function playSound(sound)
-    sound:Play()
 end
 
 local function showTooltip(icon, tool)
@@ -133,11 +115,9 @@ local function handleEquip(tool, icon)
     if tool and not cooldowns[icon] then
         if tool.Parent ~= char then
             hum:EquipTool(tool)
-            playSound(equipSound)
             startCooldown(icon, tool:GetAttribute("Cooldown") or CONFIG.defaultCooldown)
         else
             hum:UnequipTools()
-            playSound(selectSound)
         end
     end
 end
