@@ -1,172 +1,292 @@
-game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
- 
-local uis = game:GetService("UserInputService")
-local player = game.Players.LocalPlayer
-local char = workspace:WaitForChild(player.Name) -- added WaitForChild
+local StarterGui = game:GetService('StarterGui')
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local SoundService = game:GetService("SoundService")
+
+StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+
+local player = Players.LocalPlayer
+local char = workspace:WaitForChild(player.Name)
 local bp = player.Backpack
 local hum = char:WaitForChild("Humanoid")
 local frame = script.Parent.Frame
 local template = frame.Template
-local equipped = 0.2 -- icon transparencies
-local unequipped = 0.7
 
-local iconSize = template.Size
-local iconBorder = { x = 15, y = 5 } -- pixel space between icons
-
-local inputKeys = { -- dictionary for effective referencing
-	["One"]   = { txt = "1" },
-	["Two"]   = { txt = "2" },
-	["Three"] = { txt = "3" },
-	["Four"]  = { txt = "4" },
-	["Five"]  = { txt = "5" }
+-- Configuration
+local CONFIG = {
+    equippedTransparency = 0.2,
+    unequippedTransparency = 0.7,
+    iconSize = template.Size,
+    iconBorder = { x = 15, y = 5 },
+    cooldownColor = Color3.fromRGB(100, 100, 100),
+    normalColor = Color3.fromRGB(255, 255, 255),
+    tooltipFadeTime = 0.3,
+    defaultCooldown = 1, -- seconds
 }
 
-local inputOrder = { -- array for storing the order of the keys
-	inputKeys["One"],
-	inputKeys["Two"],
-	inputKeys["Three"],
-	inputKeys["Four"],
-	inputKeys["Five"]
+-- Sound effects
+local selectSound = Instance.new("Sound")
+selectSound.SoundId = "rbxasset://sounds/uuhhh.wav"
+selectSound.Parent = SoundService
+
+local equipSound = Instance.new("Sound")
+equipSound.SoundId = "rbxasset://sounds/click.wav"
+equipSound.Parent = SoundService
+
+-- Data storage
+local inputKeys = {
+    ["One"]   = { txt = "1", slot = 1 },
+    ["Two"]   = { txt = "2", slot = 2 },
+    ["Three"] = { txt = "3", slot = 3 },
+    ["Four"]  = { txt = "4", slot = 4 },
+    ["Five"]  = { txt = "5", slot = 5 }
 }
-	
-function handleEquip(tool)
-	if tool then
-		if tool.Parent ~= char then
-			hum:EquipTool(tool)
-		else
-			hum:UnequipTools()
-		end
-	end
+
+local inputOrder = {
+    inputKeys["One"],
+    inputKeys["Two"],
+    inputKeys["Three"],
+    inputKeys["Four"],
+    inputKeys["Five"]
+}
+
+local cooldowns = {} -- Track tool cooldowns
+local dragging = nil -- Track drag-and-drop
+local hotbarConfig = {} -- Store hotbar configuration
+
+-- Create tooltip frame
+local tooltip = Instance.new("Frame")
+tooltip.Size = UDim2.new(0, 200, 0, 50)
+tooltip.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+tooltip.BackgroundTransparency = 0.2
+tooltip.Visible = false
+tooltip.Parent = frame
+
+local tooltipLabel = Instance.new("TextLabel")
+tooltipLabel.Size = UDim2.new(1, -10, 1, -10)
+tooltipLabel.Position = UDim2.new(0, 5, 0, 5)
+tooltipLabel.BackgroundTransparency = 1
+tooltipLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+tooltipLabel.TextScaled = true
+tooltipLabel.Parent = tooltip
+
+local function saveHotbarConfig()
+    -- In a real implementation, this would save to a DataStore
+    hotbarConfig = {}
+    for i, value in ipairs(inputOrder) do
+        if value.tool then
+            hotbarConfig[value.txt] = value.tool.Name
+        end
+    end
 end
 
-function create() -- creates all the icons at once (and will only run once)
-
-	local toShow = #inputOrder -- # operator can only be used with an array, not a dictionary
-	local totalX = (toShow * iconSize.X.Offset) + ((toShow + 1) * iconBorder.x)
-	local totalY = iconSize.Y.Offset + (2 * iconBorder.y)
-	
-	frame.Size = UDim2.new(0, totalX, 0, totalY)
-	frame.Position = UDim2.new(0.5, - (totalX / 2), 1, - (totalY + (iconBorder.y * 2)))
-	frame.Visible = true -- just in case!
-
-	for i = 1, #inputOrder do
-		
-		local value = inputOrder[i]		
-		local clone = template:Clone()
-		clone.Parent = frame
-		clone.Label.Text = value["txt"]
-		clone.Name = value["txt"]
-		clone.Visible = true
-		clone.Position = UDim2.new(0, (i-1) * (iconSize.X.Offset) + (iconBorder.x * i), 0, iconBorder.y)
-		
-		local tool = value["tool"]
-		if tool then
-			clone.Tool.Image = tool.TextureId
-		end
-
-		clone.Tool.MouseButton1Down:Connect(function() -- click icon to equip/unequip
-			for key, value in pairs(inputKeys) do
-				if value["txt"] == clone.Name then
-					handleEquip(value["tool"]) 
-				end 
-			end
-		end)
-
-	end	
-	template:Destroy()
+local function loadHotbarConfig()
+    -- In a real implementation, this would load from a DataStore
+    for key, toolName in pairs(hotbarConfig) do
+        local tool = bp:FindFirstChild(toolName) or char:FindFirstChild(toolName)
+        if tool then
+            for _, value in ipairs(inputOrder) do
+                if value.txt == key and not value.tool then
+                    value.tool = tool
+                    break
+                end
+            end
+        end
+    end
 end
 
-function setup() -- sets up all the tools already in the backpack (and will only run once)
-	local tools = bp:GetChildren()
-	for i = 1, #tools do 
-		if tools[i]:IsA("Tool") then -- does not assume that all objects in the backpack will be a tool (2.11.18)
-		for i = 1, #inputOrder do
-			local value = inputOrder[i]
-			if not value["tool"] then -- if the tool slot is free...
-				value["tool"] = tools[i]	
-				break -- stop searching for a free slot
-			end
-		end
-		end
-	end
-	create()
+local function playSound(sound)
+    sound:Play()
 end
 
-function adjust()
-	for key, value in pairs(inputKeys) do
-		local tool = value["tool"]
-		local icon = frame:FindFirstChild(value["txt"])
-		if tool then
-			icon.Tool.Image = tool.TextureId
-			if tool.Parent == char then -- if the tool is equipped...
-				icon.ImageTransparency = equipped
-			else
-				icon.ImageTransparency = unequipped
-			end
-		else
-			icon.Tool.Image = ""
-			icon.ImageTransparency = unequipped
-		end
-	end
+local function showTooltip(icon, tool)
+    if tool then
+        tooltip.Position = UDim2.new(0, icon.Position.X.Offset, 0, -60)
+        tooltipLabel.Text = tool.Name .. "\n" .. (tool:GetAttribute("Description") or "No description")
+        tooltip.Visible = true
+    end
 end
 
-function onKeyPress(inputObject) -- press keys to equip/unequip
-	local key = inputObject.KeyCode.Name
-	local value = inputKeys[key]
-	if value and uis:GetFocusedTextBox() == nil then -- don't equip/unequip while typing in text box
-		handleEquip(value["tool"])
-	end 
+local function hideTooltip()
+    tooltip.Visible = false
 end
 
-function handleAddition(adding)
-
-	if adding:IsA("Tool") then
-		local new = true
-
-		for key, value in pairs(inputKeys) do
-			local tool = value["tool"]
-			if tool then
-				if tool == adding then
-					new = false
-				end
-			end
-		end
-
-		if new then
-			for i = 1, #inputOrder do
-				local tool = inputOrder[i]["tool"]
-				if not tool then -- if the tool slot is free...
-					inputOrder[i]["tool"] = adding
-					break
-				end
-			end
-		end
-
-	adjust()
-	end
+local function startCooldown(icon, duration)
+    cooldowns[icon] = duration or CONFIG.defaultCooldown
+    icon.ImageColor3 = CONFIG.cooldownColor
+    local startTime = tick()
+    
+    while cooldowns[icon] and cooldowns[icon] > 0 do
+        cooldowns[icon] = math.max(0, cooldowns[icon] - (tick() - startTime))
+        icon.Tool.ImageTransparency = CONFIG.equippedTransparency + (cooldowns[icon] / duration) * 0.5
+        wait()
+    end
+    
+    if icon and icon.Parent then
+        icon.ImageColor3 = CONFIG.normalColor
+        icon.Tool.ImageTransparency = icon.Tool.Parent.Parent.ImageTransparency
+        cooldowns[icon] = nil
+    end
 end
 
-function handleRemoval(removing) 
-	if removing:IsA("Tool") then
-		if removing.Parent ~= char and removing.Parent ~= bp then
-
-			for i = 1, #inputOrder do
-				if inputOrder[i]["tool"] == removing then
-					inputOrder[i]["tool"] = nil
-					break
-				end
-			end
-		end
-
-		adjust()
-	end
+local function handleEquip(tool, icon)
+    if tool and not cooldowns[icon] then
+        if tool.Parent ~= char then
+            hum:EquipTool(tool)
+            playSound(equipSound)
+            startCooldown(icon, tool:GetAttribute("Cooldown") or CONFIG.defaultCooldown)
+        else
+            hum:UnequipTools()
+            playSound(selectSound)
+        end
+    end
 end
 
-uis.InputBegan:Connect(onKeyPress)
+local function create()
+    local toShow = #inputOrder
+    local totalX = (toShow * CONFIG.iconSize.X.Offset) + ((toShow + 1) * CONFIG.iconBorder.x)
+    local totalY = CONFIG.iconSize.Y.Offset + (2 * CONFIG.iconBorder.y)
+    
+    frame.Size = UDim2.new(0, totalX, 0, totalY)
+    frame.Position = UDim2.new(0.5, - (totalX / 2), 1, - (totalY + (CONFIG.iconBorder.y * 2)))
+    frame.Visible = true
 
+    for i, value in ipairs(inputOrder) do
+        local clone = template:Clone()
+        clone.Parent = frame
+        clone.Label.Text = value.txt
+        clone.Name = value.txt
+        clone.Visible = true
+        clone.Position = UDim2.new(0, (i-1) * CONFIG.iconSize.X.Offset + (CONFIG.iconBorder.x * i), 0, CONFIG.iconBorder.y)
+        
+        if value.tool then
+            clone.Tool.Image = value.tool.TextureId
+        end
+
+        -- Mouse interactions
+        clone.Tool.MouseButton1Down:Connect(function()
+            handleEquip(value.tool, clone)
+        end)
+        
+        clone.Tool.MouseEnter:Connect(function()
+            showTooltip(clone, value.tool)
+        end)
+        
+        clone.Tool.MouseLeave:Connect(hideTooltip)
+        
+        -- Drag and drop
+        clone.Tool.InputBegan:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                dragging = {icon = clone, originalSlot = value}
+            end
+        end)
+        
+        clone.Tool.InputEnded:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 and dragging then
+                for _, otherValue in ipairs(inputOrder) do
+                    if otherValue.txt == clone.Name and dragging.originalSlot ~= otherValue then
+                        -- Swap tools
+                        local tempTool = otherValue.tool
+                        otherValue.tool = dragging.originalSlot.tool
+                        dragging.originalSlot.tool = tempTool
+                        adjust()
+                        saveHotbarConfig()
+                        break
+                    end
+                end
+                dragging = nil
+            end
+        end)
+    end
+    
+    template:Destroy()
+end
+
+local function setup()
+    loadHotbarConfig()
+    local tools = bp:GetChildren()
+    for _, tool in ipairs(tools) do
+        if tool:IsA("Tool") then
+            for _, value in ipairs(inputOrder) do
+                if not value.tool then
+                    value.tool = tool
+                    break
+                end
+            end
+        end
+    end
+    create()
+    adjust()
+    saveHotbarConfig()
+end
+
+local function adjust()
+    for _, value in ipairs(inputOrder) do
+        local tool = value.tool
+        local icon = frame:FindFirstChild(value.txt)
+        if icon then
+            if tool then
+                icon.Tool.Image = tool.TextureId
+                icon.ImageTransparency = tool.Parent == char and not cooldowns[icon] 
+                    and CONFIG.equippedTransparency or CONFIG.unequippedTransparency
+            else
+                icon.Tool.Image = ""
+                icon.ImageTransparency = CONFIG.unequippedTransparency
+            end
+            icon.ImageColor3 = cooldowns[icon] and CONFIG.cooldownColor or CONFIG.normalColor
+        end
+    end
+end
+
+local function onKeyPress(inputObject)
+    local key = inputObject.KeyCode.Name
+    local value = inputKeys[key]
+    if value and UserInputService:GetFocusedTextBox() == nil then
+        local icon = frame:FindFirstChild(value.txt)
+        handleEquip(value.tool, icon)
+    end
+end
+
+local function handleAddition(adding)
+    if adding:IsA("Tool") then
+        local new = true
+        for _, value in ipairs(inputOrder) do
+            if value.tool == adding then
+                new = false
+                break
+            end
+        end
+
+        if new then
+            for _, value in ipairs(inputOrder) do
+                if not value.tool then
+                    value.tool = adding
+                    break
+                end
+            end
+        end
+
+        adjust()
+        saveHotbarConfig()
+    end
+end
+
+local function handleRemoval(removing)
+    if removing:IsA("Tool") and removing.Parent ~= char and removing.Parent ~= bp then
+        for _, value in ipairs(inputOrder) do
+            if value.tool == removing then
+                value.tool = nil
+                break
+            end
+        end
+        adjust()
+        saveHotbarConfig()
+    end
+end
+
+UserInputService.InputBegan:Connect(onKeyPress)
 char.ChildAdded:Connect(handleAddition)
 char.ChildRemoved:Connect(handleRemoval)
-
 bp.ChildAdded:Connect(handleAddition)
 bp.ChildRemoved:Connect(handleRemoval)
 
