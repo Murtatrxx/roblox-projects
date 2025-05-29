@@ -1,9 +1,7 @@
 --[[
     Hotbar System
     Manages a customizable hotbar for equipping tools in Roblox.
-    Configuration: Edit the CONFIG table to adjust appearance and behavior.
-    Usage: Place this script in a ScreenGui under StarterGui.
-    Dependencies: Requires a Frame with a Template child (ImageLabel and TextLabel) in the script's parent.
+    USE CRTL` TO ENABLE THE INVENTORY UI
 ]]
 
 local StarterGui = game:GetService("StarterGui")
@@ -17,7 +15,7 @@ StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
 local player = Players.LocalPlayer
 local char = workspace:WaitForChild(player.Name, 5)
 if not char then
-    warn("Character not found for player: " .. player.Name)
+    warn("NOCHAR " .. player.Name)
     return
 end
 local bp = player.Backpack
@@ -37,11 +35,7 @@ local CONFIG = {
     iconBorder = { x = 15, y = 5 },
     cooldownColor = Color3.fromRGB(100, 100, 100),
     normalColor = Color3.fromRGB(255, 255, 255),
-    tooltipFadeTime = 0.3,
     defaultCooldown = 1, -- seconds
-    tooltipSize = UDim2.new(0, 200, 0, 50),
-    tooltipBackgroundColor = Color3.fromRGB(50, 50, 50),
-    tooltipBackgroundTransparency = 0.2
 }
 
 -- Input key mappings
@@ -50,7 +44,8 @@ local inputKeys = {
     ["Two"]   = { txt = "2", slot = 2 },
     ["Three"] = { txt = "3", slot = 3 },
     ["Four"]  = { txt = "4", slot = 4 },
-    ["Five"]  = { txt = "5", slot = 5 }
+    ["Five"]  = { txt = "5", slot = 5 },
+    ["Six"]   = { txt = "6", slot = 6}
 }
 
 local inputOrder = {
@@ -58,7 +53,8 @@ local inputOrder = {
     inputKeys["Two"],
     inputKeys["Three"],
     inputKeys["Four"],
-    inputKeys["Five"]
+    inputKeys["Five"],
+    inputKeys["Six"]
 }
 
 -- State variables
@@ -66,23 +62,6 @@ local cooldowns = {}
 local dragging = nil
 local hotbarConfig = {}
 local connections = {} -- Store event connections for cleanup
-
--- Tooltip setup
-local tooltip = Instance.new("Frame")
-tooltip.Size = CONFIG.tooltipSize
-tooltip.BackgroundColor3 = CONFIG.tooltipBackgroundColor
-tooltip.BackgroundTransparency = CONFIG.tooltipBackgroundTransparency
-tooltip.Visible = false
-tooltip.Parent = frame
-
-local tooltipLabel = Instance.new("TextLabel")
-tooltipLabel.Size = UDim2.new(1, -10, 1, -10)
-tooltipLabel.Position = UDim2.new(0, 5, 0, 5)
-tooltipLabel.BackgroundTransparency = 1
-tooltipLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-tooltipLabel.TextScaled = true
-tooltipLabel.Parent = tooltip
-
 -- Saves the current hotbar configuration
 local function saveHotbarConfig()
     hotbarConfig = {}
@@ -106,19 +85,6 @@ local function loadHotbarConfig()
             end
         end
     end
-end
-
--- Shows tooltip with tool information
-local function showTooltip(icon, tool)
-    if not tool then return end
-    tooltip.Position = UDim2.new(0, icon.Position.X.Offset, 0, -CONFIG.tooltipSize.Y.Offset - 10)
-    tooltipLabel.Text = tool.Name .. "\n" .. (tool:GetAttribute("Description") or "No description")
-    tooltip.Visible = true
-end
-
--- Hides the tooltip
-local function hideTooltip()
-    tooltip.Visible = false
 end
 
 -- Starts a cooldown animation for an icon
@@ -168,13 +134,6 @@ end
 
 -- Binds mouse and drag-and-drop events to an icon
 local function bindIconEvents(clone, value)
-    table.insert(connections, clone.Tool.MouseButton1Down:Connect(function()
-        handleEquip(value.tool, clone)
-    end))
-    table.insert(connections, clone.Tool.MouseEnter:Connect(function()
-        showTooltip(clone, value.tool)
-    end))
-    table.insert(connections, clone.Tool.MouseLeave:Connect(hideTooltip))
     table.insert(connections, clone.Tool.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             dragging = { icon = clone, originalSlot = value }
@@ -267,10 +226,24 @@ end
 local function onKeyPress(inputObject)
     if UserInputService:GetFocusedTextBox() then return end
     local key = inputObject.KeyCode.Name
+    
+    -- Handle Ctrl + ` to toggle hotbar visibility
+    if key == "Quote" and isCtrlHeld then
+        frame.Visible = not frame.Visible
+        return
+    end
+
     local value = inputKeys[key]
     if value then
         local icon = frame:FindFirstChild(value.txt)
         handleEquip(value.tool, icon)
+    end
+end
+
+-- Tracks Ctrl key state
+local function onKeyStateChange(inputObject, isPressed)
+    if inputObject.KeyCode == Enum.KeyCode.LeftControl or inputObject.KeyCode == Enum.KeyCode.RightControl then
+        isCtrlHeld = isPressed
     end
 end
 
