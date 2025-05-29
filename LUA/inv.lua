@@ -38,23 +38,34 @@ local CONFIG = {
     defaultCooldown = 1, -- seconds
 }
 
--- Input key mappings
 local inputKeys = {
+    ["Zero"]  = { txt = "0", slot = 0 },
     ["One"]   = { txt = "1", slot = 1 },
     ["Two"]   = { txt = "2", slot = 2 },
     ["Three"] = { txt = "3", slot = 3 },
     ["Four"]  = { txt = "4", slot = 4 },
     ["Five"]  = { txt = "5", slot = 5 },
-    ["Six"]   = { txt = "6", slot = 6}
+    ["Six"]   = { txt = "6", slot = 6 },
+    ["Seven"] = { txt = "7", slot = 7 },
+    ["Eight"] = { txt = "8", slot = 8 },
+    ["Nine"]  = { txt = "9", slot = 9 },
+    ["Minus"] = { txt = "-", slot = -1 },
+    ["Equals"] = { txt = "=", slot = -2 }
 }
 
 local inputOrder = {
+    inputKeys["Zero"],
     inputKeys["One"],
     inputKeys["Two"],
     inputKeys["Three"],
     inputKeys["Four"],
     inputKeys["Five"],
-    inputKeys["Six"]
+    inputKeys["Six"],
+    inputKeys["Seven"],
+    inputKeys["Eight"],
+    inputKeys["Nine"],
+    inputKeys["Minus"],
+    inputKeys["Equals"]
 }
 
 -- State variables
