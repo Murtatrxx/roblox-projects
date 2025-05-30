@@ -39,7 +39,6 @@ local CONFIG = {
 }
 
 local inputKeys = {
-    ["Zero"]  = { txt = "0", slot = 0 },
     ["One"]   = { txt = "1", slot = 1 },
     ["Two"]   = { txt = "2", slot = 2 },
     ["Three"] = { txt = "3", slot = 3 },
@@ -55,7 +54,6 @@ local inputKeys = {
 }
 
 local inputOrder = {
-    inputKeys["Zero"],
     inputKeys["One"],
     inputKeys["Two"],
     inputKeys["Three"],
