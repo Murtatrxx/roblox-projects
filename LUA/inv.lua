@@ -49,6 +49,7 @@ local inputKeys = {
     ["Seven"] = { txt = "7", slot = 7 },
     ["Eight"] = { txt = "8", slot = 8 },
     ["Nine"]  = { txt = "9", slot = 9 },
+    ["Zero"]  = { txt = "0", slot = 0  },
     ["Minus"] = { txt = "-", slot = -1 },
     ["Equals"] = { txt = "=", slot = -2 }
 }
@@ -64,6 +65,7 @@ local inputOrder = {
     inputKeys["Seven"],
     inputKeys["Eight"],
     inputKeys["Nine"],
+    inputKeys["Zero"],
     inputKeys["Minus"],
     inputKeys["Equals"]
 }
