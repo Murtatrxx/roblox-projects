@@ -35,7 +35,7 @@ local CONFIG = {
     iconBorder = { x = 15, y = 5 },
     cooldownColor = Color3.fromRGB(100, 100, 100),
     normalColor = Color3.fromRGB(255, 255, 255),
-    defaultCooldown = 1, -- seconds
+    defaultCooldown = 0.1, -- seconds
 }
 
 local inputKeys = {
