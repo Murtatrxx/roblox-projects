@@ -353,7 +353,7 @@ cancelRenameButton.MouseButton1Click:Connect(function() renameDialog.Visible = f
 -- Same thing, but now for enter key
 renameTextBox.FocusLost:Connect(function(enterPressed)
   if enterPressed and selectedWaypoint then
-    local newName = renameTextBox.Text:gsub("^%s*(.-)%s*$", "%1")
+    local newName =renameTextBox.Text:gsub("^%s*(.-)%s*$", "%1")
     if newName ~= "" then
       renameWaypoint(selectedWaypoint, newName)
     end
