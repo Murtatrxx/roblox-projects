@@ -264,7 +264,7 @@ local function restrictAngle(angle)
   return angle
 end
 
--- Position each direction label
+-- Position each direction label initially, as these positions will be overwritten by acutal compass behaviour
 for _, dir in ipairs(directions) do
   local label       = Instance.new("TextLabel")
   label.Name        = dir.label
