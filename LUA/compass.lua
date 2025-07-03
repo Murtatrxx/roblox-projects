@@ -24,7 +24,7 @@ local camera            = workspace.CurrentCamera or workspace:WaitForChild("Cam
 -- I set this to false because i was testing UI in studio too andi i didn't want it to double appear to I disable it first and script overrides
 player.PlayerGui:WaitForChild("CompassGUI", 5).Enabled = false
 
-local waypointSound= Instance.new("Sound") 
+local waypointSound =Instance.new("Sound") 
 waypointSound.Name = "WaypointProximity"
 waypointSound.SoundId = "rbxassetid://72841109192126"  -- Some audio i found from the toolbox
 waypointSound.Volume = 0.5
