@@ -19,10 +19,10 @@ local StarterGui        = game:GetService("StarterGui")
 local SoundService      = game:GetService("SoundService")
 
 local player            = Players.LocalPlayer or Players.PlayerAdded:Wait()
-local camera            = workspace.CurrentCamera or workspace:WaitForChild("Camera")
+local camera            = workspace.CurrentCamera or workspace:WaitForChild("Camera", 5)
 
 -- I set this to false because i was testing UI in studio too andi i didn't want it to double appear to I disable it first and script overrides
-player.PlayerGui:WaitForChild("CompassGUI").Enabled = false
+player.PlayerGui:WaitForChild("CompassGUI", 5).Enabled = false
 
 local waypointSound= Instance.new("Sound") 
 waypointSound.Name = "WaypointProximity"
@@ -34,7 +34,7 @@ local screenGui =Instance.new("ScreenGui")
 screenGui.Name = "CompassGUI"
 screenGui.ResetOnSpawn = false
 screenGui.IgnoreGuiInset = true
-screenGui.Parent = player:WaitForChild("PlayerGui")
+screenGui.Parent = player:WaitForChild("PlayerGui", 5)
 
 -- Parent frame, contains all but debug label
 local compassGui = Instance.new("Frame")
